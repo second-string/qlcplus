@@ -67,6 +67,7 @@ public:
     /** Widget types */
     enum Type
     {
+        SSSUSBDMX,
         ProRXTX,    //! Enttec Pro widget using the TX/RX features of the dongle
         OpenTX,     //! Enttec Open widget (only TX)
         OpenRX,     //! FTDI DMX widget with RX capabilities (only RX, use OpenTX for TX)

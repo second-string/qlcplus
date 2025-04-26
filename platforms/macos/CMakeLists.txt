@@ -27,7 +27,8 @@ set(APPLE_CODESIGN_ENTITLEMENTS "qlcplus.entitlements")
 
 # install Qt library frameworks
 #set(QT_FRAMEWORKS_DIR ${_qt5_root_dir}/../../Frameworks) # homebrew
-set(QT_FRAMEWORKS_DIR $ENV{QTDIR}/lib)
+# TODO :: QT_INSTALL_LIB set in variables.cmake is right variable, but it has multiple newlines that weren't getting properly stripped
+set(QT_FRAMEWORKS_DIR /opt/homebrew/opt/qt@5/lib)
 set(QT_FRAMEWORK_NAMES
     "QtCore"
     "QtDBus"
@@ -57,7 +58,8 @@ foreach(FW_NAME IN LISTS QT_FRAMEWORK_NAMES)
 endforeach()
 
 # install Qt plugins
-set(QT_PLUGINS_DIR $ENV{QTDIR}/plugins)
+# TODO same here with QT_INSTALL_PLUGINS
+set(QT_PLUGINS_DIR /opt/homebrew/opt/qt@5/plugins)
 # imageformats
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqgif.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)
 install(FILES ${QT_PLUGINS_DIR}/imageformats/libqjpeg.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/imageformats)

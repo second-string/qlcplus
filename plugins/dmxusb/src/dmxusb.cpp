@@ -27,6 +27,7 @@
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
 #include "euroliteusbdmxpro.h"
+#include "sssusbdmxcontroller.h"
 #include "dmxusb.h"
 
 /****************************************************************************
@@ -217,6 +218,12 @@ bool DMXUSB::openInput(quint32 input, quint32 universe)
             connect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                     this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }
+        else if (widget->type() == DMXUSBWidget::SSSUSBDMX)
+        {
+            SSSUSBDMXController *sssController = static_cast<SSSUSBDMXController*>(widget);
+            connect(sssController, SIGNAL(dmxInputValueChanged(quint32,quint32,quint32,uchar)),
+                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        }
         addToMap(universe, input, Input);
         return widget->open(input, true);
     }
@@ -237,6 +244,12 @@ void DMXUSB::closeInput(quint32 input, quint32 universe)
             EnttecDMXUSBPro* pro = (EnttecDMXUSBPro*) widget;
             disconnect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                        this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        }
+        else if (widget->type() == DMXUSBWidget::SSSUSBDMX)
+        {
+            SSSUSBDMXController *sssController = static_cast<SSSUSBDMXController*>(widget);
+            disconnect(sssController, SIGNAL(dmxInputValueChanged(qint32, qint32, qint32, uchar)),
+                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }
     }
 }

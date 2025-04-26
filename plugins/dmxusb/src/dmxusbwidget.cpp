@@ -31,6 +31,7 @@
 #endif
 #include "stageprofi.h"
 #include "vinceusbdmx512.h"
+#include "sssusbdmxcontroller.h"
 
 DMXUSBWidget::DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequency)
     : m_interface(iface)
@@ -96,12 +97,15 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
 
 #if defined(FTD2XX)
     interfacesList.append(FTD2XXInterface::interfaces(interfacesList));
+    qDebug() << "appended ftd2xx";
 #endif
 #if defined(QTSERIAL)
     interfacesList.append(QtSerialInterface::interfaces(interfacesList));
+    qDebug() << "appended qtserial";
 #endif
 #if defined(LIBFTDI) || defined(LIBFTDI1)
     interfacesList.append(LibFTDIInterface::interfaces(interfacesList));
+    qDebug() << "appended libftdi";
 #endif
 
     QMap <QString, QVariant> types(DMXInterface::typeMap());
@@ -109,11 +113,13 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
     foreach (DMXInterface *iface, interfacesList)
     {
         QString productName = iface->name().toUpper();
+        qDebug() << "widgets(): productName: " << productName;
 
         // check if protocol must be forced on an interface
         if (types.contains(iface->serial()) == true)
         {
             DMXUSBWidget::Type type = (DMXUSBWidget::Type) types[iface->serial()].toInt();
+            qDebug() << "types contains serial: type: " << type;
             switch (type)
             {
                 case DMXUSBWidget::OpenTX:
@@ -152,6 +158,10 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                     widgetList << new EuroliteUSBDMXPro(iface, output_id++);
                 break;
 #endif
+                case DMXUSBWidget::SSSUSBDMX:
+                    widgetList << new SSSUSBDMXController(iface, output_id++, input_id++);
+                break;
+
                 default:
                 case DMXUSBWidget::ProRXTX:
                     widgetList << new EnttecDMXUSBPro(iface, output_id++, input_id++);
@@ -246,6 +256,11 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
             widgetList << new EuroliteUSBDMXPro(iface, output_id++);
         }
 #endif
+        else if (productName.contains("SSS") || productName.contains("USB DMX Pro"))
+        {
+            SSSUSBDMXController *sss_dmx = new SSSUSBDMXController(iface, output_id++, input_id++);
+            widgetList << sss_dmx;
+        }
         else
         {
             /* This is probably an Open DMX USB widget */

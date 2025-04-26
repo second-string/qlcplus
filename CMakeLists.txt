@@ -6,6 +6,8 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif()
 
+SET(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
 # Prevent CMake make install strips off non-standard build paths
 # Refer to https://stackoverflow.com/questions/7970544/cmake-make-install-output-cant-find-shared-qt-libraries-under-redhat
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)

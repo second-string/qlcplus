@@ -109,6 +109,7 @@ target_sources(${module_name} PRIVATE
     enttecdmxusbpro.cpp enttecdmxusbpro.h
     stageprofi.cpp stageprofi.h
     vinceusbdmx512.cpp vinceusbdmx512.h
+    sssusbdmxcontroller.cpp sssusbdmxcontroller.h
 )
 
 target_include_directories(${module_name} PRIVATE
