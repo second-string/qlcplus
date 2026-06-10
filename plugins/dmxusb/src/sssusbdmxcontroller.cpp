@@ -75,10 +75,18 @@ void SSSUSBDMXControllerOutputThread::run()
 {
     qDebug() << "SSS output dmx thread started...";
 
-    while (!iface->isOpen() && !aborted)
+    int openAttempts = 0;
+    while (!iface->isOpen() && !aborted && openAttempts < 20)
     {
         qDebug() << "output thread interface not open, spinning";
+        openAttempts++;
         msleep(100);
+    }
+
+    if (openAttempts >= 20)
+    {
+        qDebug() << "Giving up trying to open output thread interface, aborting thread";
+        return;
     }
 
     while (!aborted) {
@@ -157,10 +165,18 @@ void SSSUSBDMXControllerInputThread::run()
 {
     qDebug() << "SSS input dmx thread started...";
 
-    while (!iface->isOpen() && !aborted)
+    int openAttempts = 0;
+    while (!iface->isOpen() && !aborted && openAttempts < 20)
     {
         qDebug() << "input thread interface not open, spinning";
+        openAttempts++;
         msleep(100);
+    }
+
+    if (openAttempts >= 20)
+    {
+        qDebug() << "Giving up trying to open output thread interface, aborting thread";
+        return;
     }
 
     bool byteReadSuccess = false;

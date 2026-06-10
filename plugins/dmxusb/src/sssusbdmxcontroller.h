@@ -25,20 +25,28 @@
 #define SSS_ESTA_ID (0x09B6)
 
 typedef enum {
-    CONTROL_BYTE_TX_CADENCE = 0x00,      // 0x0
-    CONTROL_BYTE_REBOOT,                 // 0x1
-    CONTROL_BYTE_RESET_CONFIG,           // 0x2
-    CONTROL_BYTE_DMX_DATA,               // 0x3
-    CONTROL_BYTE_SET_TX_MODE,            // 0x4
-    CONTROL_BYTE_SET_TEST_MODE_TYPE,     // 0x5
-    CONTROL_BYTE_SET_STATIC_DMX_PACKET,  // 0x6
-    CONTROL_BYTE_GET_CONFIG,             // 0x7
-    CONTROL_BYTE_SET_BREAK_TIME,         // 0x8
-    CONTROL_BYTE_SET_MAB_TIME,           // 0x9
-    CONTROL_BYTE_ENTER_BL,               // 0xA
-    CONTROL_BYTE_SET_SERIAL,             // 0xB
-    CONTROL_BYTE_SET_DATA_DIRECTION,     // 0xC
-    CONTROL_BYTE_PING,                   // 0xD
+    CONTROL_BYTE_PING = 0x00,                      // 0x00
+    CONTROL_BYTE_REBOOT,                           // 0x01
+    CONTROL_BYTE_RESET_CONFIG,                     // 0x02
+    CONTROL_BYTE_GET_CONFIG,                       // 0x03
+                                                   //
+    CONTROL_BYTE_DMX_DATA = 0x10,                  // 0x10
+                                                   //
+    CONTROL_BYTE_SET_DATA_DIRECTION = 0x20,        // 0x20
+    CONTROL_BYTE_SET_TX_MODE,                      // 0x21
+    CONTROL_BYTE_SET_RX_MODE,                      // 0x22
+    CONTROL_BYTE_TX_CADENCE,                       // 0x23
+    CONTROL_BYTE_SET_BREAK_TIME,                   // 0x24
+    CONTROL_BYTE_SET_MAB_TIME,                     // 0x25
+    CONTROL_BYTE_SET_TEST_MODE_TYPE,               // 0x26
+    CONTROL_BYTE_SET_STATIC_DMX_PACKET,            // 0x27
+    CONTROL_BYTE_SET_INPUT_COMPAT_MODE,            // 0x28
+                                                   //
+    CONTROL_BYTE_ENTTEC_GET_WIDGET_PARAMS = 0x30,  // 0x30
+    CONTROL_BYTE_ENTTEC_GET_WIDGET_SERIAL = 0x31,  // 0x31
+                                                   //
+    CONTROL_BYTE_SET_SERIAL = 0xE0,                // 0xE0
+    CONTROL_BYTE_ENTER_BL,                         // 0xE1
 
     CONTROL_BYTE_COUNT,
 } ControlByte_t;
